@@ -3,7 +3,7 @@ import tkinter as tk
 import subprocess
 from loguru import logger
 
-# Configure Loguru logger
+# Configure Loguru loggerrrrr
 logger.add("app.log", rotation="500 MB", level="DEBUG")
 
 
