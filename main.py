@@ -3,7 +3,7 @@ import tkinter as tk
 import subprocess
 from loguru import logger
 
-# Configure Loguru loggerrrrr
+# Configure Loguru logger
 logger.add("app.log", rotation="500 MB", level="DEBUG")
 
 
@@ -24,26 +24,26 @@ def create_project():
     project_name = project_entry.get()
     logger.info(f"Creating new project: {project_name}")
 
-    # Create the new project folder
-    user_profile = os.environ.get("USERPROFILE")
-    project_folder = os.path.join(user_profile, "PycharmProjects", project_name)
-    os.makedirs(project_folder, exist_ok=True)
-    logger.info(f"New project folder created: {project_folder}")
-
-    # Create the config and pics folders within the project folder using PowerShell commands
-    powershell_commands = [
-        f'New-Item -Path "{project_folder}\\config" -ItemType Directory',
-        f'New-Item -Path "{project_folder}\\pics" -ItemType Directory',
-    ]
-    subprocess.run(
-        ["powershell.exe", "-Command", ";".join(powershell_commands)], check=True
-    )
-    logger.info("Config and pics folders created")
-
     # Determine the path to PyCharm executable
     pycharm_executable = get_pycharm_executable()
 
     if pycharm_executable:
+        # Create the new project folder
+        user_profile = os.environ.get("USERPROFILE")
+        project_folder = os.path.join(user_profile, "PycharmProjects", project_name)
+        os.makedirs(project_folder, exist_ok=True)
+        logger.info(f"New project folder created: {project_folder}")
+
+        # Create the config and pics folders within the project folder using PowerShell commands
+        powershell_commands = [
+            f'New-Item -Path "{project_folder}\\config" -ItemType Directory',
+            f'New-Item -Path "{project_folder}\\pics" -ItemType Directory',
+        ]
+        subprocess.run(
+            ["powershell.exe", "-Command", ";".join(powershell_commands)], check=True
+        )
+        logger.info("Config and pics folders created")
+
         # Open the project folder in PyCharm
         subprocess.run([pycharm_executable, project_folder])
         logger.info("Project folder opened in PyCharm")
