@@ -44,9 +44,19 @@ def create_project():
         )
         logger.info("Config and pics folders created")
 
+        # Create and write to the main.py file
+        main_file = os.path.join(project_folder, "main.py")
+        with open(main_file, "w") as file:
+            file.write("# hello :-)\n")
+        logger.info(f"main.py file created in {project_folder}")
+
         # Open the project folder in PyCharm
         subprocess.run([pycharm_executable, project_folder])
         logger.info("Project folder opened in PyCharm")
+
+        # Open the project folder in File Explorer
+        subprocess.run(["explorer.exe", project_folder])
+        logger.info("Project folder opened in File Explorer")
     else:
         logger.error("Failed to open project folder in PyCharm")
 
