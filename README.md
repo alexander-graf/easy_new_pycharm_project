@@ -1,0 +1,1 @@
+# easy_new_pycharm_project
